@@ -1,0 +1,56 @@
+<div class="container" ng-controller="DetailsCtrl as details">
+  <h2>Post Details View</h2>
+  <div class="row">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{details.post.title | uppercase}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+              <p>{{details.post.body}}</p>
+            </div>
+        </div>
+
+        <hr />
+        
+        <div class="row">
+          <h3>Comments Section</h3>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                Order By:
+                <select ng-model="details.sortby">
+                    <option selected value="name">Name</option>
+                    <option value="-voteCount">Votes</option>
+                </select>
+            </div>
+        </div>
+
+        <br />
+        <ul class="thumbnails list-group">
+            <li class="list-unstyled" ng-repeat="comment in details.post.comments | orderBy: details.sortby">
+                <div class="row">
+                    <div class="col-md-1">
+                        <div ng-click="details.upVoteComment(comment)">
+                            <span class="glyphicon glyphicon-chevron-up" style="padding-left: 4px; cursor: pointer;"></span>
+                        </div>
+                        <div class="badge">
+                            <span>{{comment.voteCount}}</span>
+                        </div>
+                        <div ng-click="details.downVoteComment(comment)">
+                            <span class="glyphicon glyphicon-chevron-down" style="padding-left: 4px; cursor: pointer;"></span>
+                        </div>
+                    </div>
+
+                    <div class="well col-md-11">
+                        <h4>{{comment.name}}</h4>
+                        <h6>{{comment.email}}</h6>
+                        <p>{{comment.body}}</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.css" />
+  </head>
+  <body ng-app="trainingAppApp">
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#/">Training App</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav">
+              <li><a href="posts.html">Home</a></li>
+              <li><a ng-href="newpost.html">New Post</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" ng-controller="DetailsCtrl as details">
+      <h2>Post Details View</h2>
+      <div class="row">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>{{details.post.title | uppercase}}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                  <p>{{details.post.body}}</p>
+                </div>
+            </div>
+
+            <hr />
+            
+            <div class="row">
+              <h3>Comments Section</h3>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    Order By:
+                    <select ng-model="details.sortby">
+                        <option selected value="name">Name</option>
+                        <option value="-voteCount">Votes</option>
+                    </select>
+                </div>
+            </div>
+
+            <br />
+            <ul class="thumbnails list-group">
+                <li class="list-unstyled" ng-repeat="comment in details.post.comments | orderBy: details.sortby">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div ng-click="details.upVoteComment(comment)">
+                                <span class="glyphicon glyphicon-chevron-up" style="padding-left: 4px; cursor: pointer;"></span>
+                            </div>
+                            <div class="badge">
+                                <span>{{comment.voteCount}}</span>
+                            </div>
+                            <div ng-click="details.downVoteComment(comment)">
+                                <span class="glyphicon glyphicon-chevron-down" style="padding-left: 4px; cursor: pointer;"></span>
+                            </div>
+                        </div>
+
+                        <div class="well col-md-11">
+                            <h4>{{comment.name}}</h4>
+                            <h6>{{comment.email}}</h6>
+                            <p>{{comment.body}}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <p><span class="glyphicon glyphicon-heart"></span>Angular Application</p>
+      </div>
+    </div>
+
+
+    <script src="../../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../bower_components/angular-messages/angular-messages.min.js"></script>
+
+    <script src="../scripts/app.js"></script>
+    <script src="../scripts/controllers/posts.js"></script>
+    <script src="../scripts/services/trainingdatafactory.js"></script>
+    <script src="../scripts/controllers/details.js"></script>
+    <script src="../scripts/controllers/newpost.js"></script>
+</body>
+</html>

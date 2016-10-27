@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="tApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+</head>
+<body>
+
+	<div ng-controller="PostsController">
+		<!-- <select ng-model="sortby">
+			<option value="id">Id</option>
+			<option value="title">Title</option>
+			<option value="body">Body</option>
+		</select> -->
+
+		<select ng-model="sortby" ng-options="l.val as l.text for l in srList"></select>
+
+		<ul>
+			<!-- <li ng-repeat="post in posts | orderBy:'-title'"> -->
+				<!-- <h1>{{post.id | number:2}}</h1> -->
+				<!-- <h1>{{post.id | currency}}</h1> -->
+			<li ng-repeat="post in posts | orderBy:sortby | limitTo:4">
+				<h1>{{post.id}}</h1>
+				<h3>{{post.title | uppercase}}</h3>
+				<p>{{post.body}}</p>
+				<hr/>
+			</li>
+		</ul>
+	</div>
+	
+	<script src="../bower_components/angular/angular.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		//http://jsonplaceholder.typicode.com/posts
+		angular.module('tApp', []);
+
+		//3. $http inside Factory using Promise ($q)
+		angular.module('tApp').factory('DataServiceFactory', function($http, $q){
+			return {
+				getAllPosts:function(){
+					var deferred = $q.defer();
+
+					$http.get("http://jsonplaceholder.typicode.com/posts").success(function(data){
+						deferred.resolve(data);
+					}).error(function(err){
+						deferred.reject("Some Error..");
+					});
+
+					return deferred.promise;
+				}
+			};
+		});
+
+		angular.module('tApp').controller('PostsController', function($scope, DataServiceFactory, $log){
+			$scope.srList = [{val:"id",text:"Id"},
+			{val:"title",text:"Title"},
+			{val:"body",text:"Body"}];
+
+			$scope.sortby = "id";
+
+			var dPromise = DataServiceFactory.getAllPosts();
+
+			dPromise.then(function(d){
+				$scope.posts = d;
+			},function(m){
+				$log.error(m);
+			});
+		});
+
+		//2. $http inside Factory using Callbacks
+		// angular.module('tApp').factory('DataServiceFactory', function($http){
+		// 	return {
+		// 		getAllPosts:function(cb){
+		// 			$http.get("http://jsonplaceholder.typicode.com/posts").success(function(data){
+		// 				cb(data);
+		// 			});
+		// 		}
+		// 	};
+		// });
+
+		// angular.module('tApp').controller('PostsController', function($scope, DataServiceFactory){
+		// 	DataServiceFactory.getAllPosts(function(d){
+		// 		$scope.posts = d;
+		// 	});
+		// });
+
+		// 1. $http inside Controller
+		// angular.module('tApp').controller('PostsController', function($scope, $http){
+		// 	$http.get("http://jsonplaceholder.typicode.com/posts").success(function(data){
+		// 		$scope.posts = data;	
+		// 	});
+		// });
+	</script>
+</body>
+</html>

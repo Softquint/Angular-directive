@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.css" />
+  </head>
+  <body ng-app="trainingAppApp">
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#/">Training App</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav">
+              <li><a href="posts.html">Home</a></li>
+              <li><a ng-href="newpost.html">New Post</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" ng-controller="NewpostCtrl as postCtrl">
+      <h2>New Posts View</h2>
+      <fieldset>
+			<div>
+			    <form method="post" name="frmPost" class="form-horizontal" novalidate>
+			        <div class="form-group" ng-class="{'has-error':frmPost.idselect.$touched && frmPost.idselect.$invalid}">
+			            <label for="userid" class="control-label col-md-2">User Id: </label>
+			 			<div class="col-sm-6">
+			            	<select name="idselect" class="form-control" ng-model="postCtrl.post.userid" ng-options="l.id as l.name for l in postCtrl.users" required>
+								<option value="">Select Id</option> 
+			            	</select>
+			            </div>
+			            <div class="col-sm-4 help-block" ng-show="frmPost.idselect.$touched">
+			            	<p ng-show="frmPost.idselect.$error.required">This field is required.</p>
+			            </div>
+			        </div>
+
+			        <div class="form-group" ng-class="{'has-error':frmPost.postDate.$touched && frmPost.postDate.$invalid}">
+			            <label for="eventDate" class="control-label col-md-2">Event Date: </label>
+			            <div class="col-sm-6">
+			            	<input class="form-control" type="text" name="postDate" placeholder="Post Date....." ng-model="postCtrl.date" ng-required="true" ng-pattern="/\d\d/\d\d/\d\d\d\d/"/>
+			        	</div>
+			        	<!-- <div class="col-sm-4 help-block" ng-show="frmPost.postDate.$touched">
+			            	<p ng-show="frmPost.postDate.$error.required">This field is required.</p>
+			            	<p ng-show="frmPost.postDate.$error.pattern">Invalid Date.</p>
+			            </div> -->
+			            <div class="col-sm-4 help-block" ng-show="frmPost.postDate.$touched" ng-messages="frmPost.postDate.$error">
+			            	<p ng-message="required">This field is required.</p>
+			            	<p ng-message="pattern">Invalid Date.</p>
+			            </div>
+		        	</div>
+
+			        <div class="form-group">
+			            <label for="title" class="control-label col-md-2">Post Title: </label>
+			            <div class="col-sm-6">
+			            	<input ng-model="postCtrl.post.title" class="form-control" type="text" name="title" placeholder="Title....." />
+			        	</div>
+			        </div>
+
+			        <div class="form-group">
+			            <label for="body" class="control-label col-md-2">Body: </label>
+			            <div class="col-sm-6">
+			            	<textarea ng-model="postCtrl.post.body" name="body" class="form-control" placeholder="Enter Post details...."></textarea>
+			        	</div>
+			        </div>
+
+			        <div class="form-group">
+			        	<div class="col-md-offset-2 col-md-8 btn-group">
+				            <button ng-disabled="frmPost.$invalid" ng-click="postCtrl.savePost(frmPost,postCtrl.post)" type="submit" class="col-md-3 btn btn-success">
+				                Save Post
+				            </button>
+				            <button type="button" class="col-md-3 btn btn-primary">
+			                	Cancel
+			            	</button>
+			        	</div>
+			        </div>
+			    </form>
+			</div>
+		</fieldset>
+    </div>
+
+    <script src="../../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../bower_components/angular-messages/angular-messages.min.js"></script>
+
+    <script src="../scripts/app.js"></script>
+    <script src="../scripts/controllers/posts.js"></script>
+    <script src="../scripts/services/trainingdatafactory.js"></script>
+    <script src="../scripts/controllers/details.js"></script>
+    <script src="../scripts/controllers/newpost.js"></script>
+</body>
+</html>
