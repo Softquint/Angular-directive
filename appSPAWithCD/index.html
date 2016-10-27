@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+  </head>
+  <body ng-app="trainingAppApp">
+    <div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#">Training App</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav">
+              <li><a href="#/posts">Home</a></li>
+              <li><a ng-href="#/newpost">New Post</a></li>
+              <li><a ng-href="#/cd">Directives</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        <ng-view></ng-view>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <p><span class="glyphicon glyphicon-heart"></span>Angular Application</p>
+      </div>
+    </div>
+
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../bower_components/angular-route/angular-route.min.js"></script>
+    <script src="../bower_components/angular-messages/angular-messages.min.js"></script>
+
+    <script src="./scripts/app.js"></script>
+    <script src="./scripts/controllers/posts.js"></script>
+    <script src="./scripts/services/trainingdatafactory.js"></script>
+    <script src="./scripts/controllers/details.js"></script>
+    <script src="./scripts/controllers/newpost.js"></script>
+    <script src="./scripts/controllers/cd.js"></script>
+
+    <script src="./scripts/directives/mySample.js"></script>    
+    <script src="./scripts/directives/postThumbnail.js"></script>
+    <script src="./scripts/directives/counter.js"></script>
+    <script src="./scripts/directives/collapsible.js"></script>
+</body>
+</html>

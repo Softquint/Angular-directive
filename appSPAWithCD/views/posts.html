@@ -1,0 +1,8 @@
+<div class="container" ng-controller="PostsCtrl as postsCtrl">
+  <h2>Posts View</h2>
+  <ul class="list-group col-md-10">
+      <li ng-repeat="p in postsCtrl.posts" class="list-unstyled">
+          <post-thumbnail post="p"></post-thumbnail>
+      </li>
+  </ul>
+</div>
